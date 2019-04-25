@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.MobileAds;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static int NUM_DICE_CHO = 6;
     public static int MIN_FACE_CHO = 1;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MobileAds.initialize(this, "ca-app-pub-9050395429342895~4142338805");
 
         android.support.v7.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -16,6 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -28,6 +31,8 @@ public class SumFragment extends Fragment implements FragmentMethods {
     private boolean atLeastMode = false;
     public static int STARTDICENUM = 6;
 
+    private AdView mAdView;
+
     public SumFragment() {
         // Required empty public constructor
     }
@@ -38,6 +43,9 @@ public class SumFragment extends Fragment implements FragmentMethods {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View sumView = inflater.inflate(R.layout.fragment_sum, container, false);
+        mAdView = sumView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         setupSpinner(sumView);
         setupCheckbox(sumView);
         setupButton(sumView);

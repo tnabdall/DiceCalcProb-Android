@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +22,8 @@ public class OptionsFragment extends Fragment implements FragmentMethods {
     public static String numDiceChoDefault = "6";
     public static String minFaceChoDefault = "1";
     public static String maxFaceChoDefault = "6";
+
+    private AdView mAdView;
 
 
     public OptionsFragment() {
@@ -31,6 +36,10 @@ public class OptionsFragment extends Fragment implements FragmentMethods {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View optionsView = inflater.inflate(R.layout.fragment_options, container, false);
+
+        mAdView = optionsView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         // Retrieve current values
         EditText sims = (EditText) optionsView.findViewById(R.id.numSimulations);

@@ -18,6 +18,9 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +32,7 @@ import java.util.Random;
 public class ChoiceFragment extends Fragment implements FragmentMethods {
 
     public static int MAX_SPINNERS = 6; //Max spinners in layout (ie 6 dice per roll).
+    private AdView mAdView;
 
 
     public ChoiceFragment() {
@@ -40,6 +44,10 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
                              Bundle savedInstanceState) {
 
         View choiceView = inflater.inflate(R.layout.fragment_choice, container, false);
+
+        mAdView = choiceView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         //Set up all elements
         setUpSpinners(choiceView);
