@@ -96,7 +96,12 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
                 // Adds all desired roll elements to list
                 for (int i = 0; i < desSpinners.size(); i++) {
                     if (desSpinners.get(i).getVisibility() == View.VISIBLE) {
-                        desRollChoices.add(Integer.parseInt(desSpinners.get(i).getSelectedItem().toString()));
+                        if(desSpinners.get(i).getSelectedItem().toString().equalsIgnoreCase("*")){
+                            desRollChoices.add(Die.WILDCARD);
+                        }
+                        else {
+                            desRollChoices.add(Integer.parseInt(desSpinners.get(i).getSelectedItem().toString()));
+                        }
                     }
                 }
 
@@ -136,18 +141,22 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
         desSpinners.add((Spinner) v.findViewById(R.id.desSpinner6));
 
         //Set up array
-        Integer[] array = new Integer[MainActivity.MAX_FACE_CHO - MainActivity.MIN_FACE_CHO + 1];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = i + MainActivity.MIN_FACE_CHO;
+        String[] setArray = new String[MainActivity.MAX_FACE_CHO - MainActivity.MIN_FACE_CHO + 1];
+        String[] desArray = new String[MainActivity.MAX_FACE_CHO - MainActivity.MIN_FACE_CHO + 2];
+        for (int i = 0; i < setArray.length; i++) {
+            setArray[i] = Integer.toString(i + MainActivity.MIN_FACE_CHO);
+            desArray[i] = Integer.toString(i + MainActivity.MIN_FACE_CHO);
         }
+        desArray[desArray.length-1] = "*";
 
 
         //Finalize spinner adapters
-        ArrayAdapter<Integer> diceAdapter = new ArrayAdapter<Integer>(v.getContext(), android.R.layout.simple_spinner_dropdown_item, array);
+        ArrayAdapter<String> setDiceAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_spinner_dropdown_item, setArray);
+        ArrayAdapter<String> desDiceAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_spinner_dropdown_item, desArray);
 
         for (int i = 0; i < MAX_SPINNERS; i++) {
-            setSpinners.get(i).setAdapter(diceAdapter);
-            desSpinners.get(i).setAdapter(diceAdapter);
+            setSpinners.get(i).setAdapter(setDiceAdapter);
+            desSpinners.get(i).setAdapter(desDiceAdapter);
         }
 
         //Set visibilities based on number of dice
