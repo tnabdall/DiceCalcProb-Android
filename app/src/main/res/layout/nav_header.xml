@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/die1" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/die_header" />
 
 </FrameLayout>
