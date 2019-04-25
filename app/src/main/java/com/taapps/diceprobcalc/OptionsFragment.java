@@ -19,9 +19,6 @@ public class OptionsFragment extends Fragment implements FragmentMethods {
     public static String numDiceChoDefault = "6";
     public static String minFaceChoDefault = "1";
     public static String maxFaceChoDefault = "6";
-    public static String numDiceSumDefault = "6";
-    public static String minFaceSumDefault = "1";
-    public static String maxFaceSumDefault = "6";
 
 
     public OptionsFragment() {
@@ -34,6 +31,18 @@ public class OptionsFragment extends Fragment implements FragmentMethods {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View optionsView = inflater.inflate(R.layout.fragment_options, container, false);
+
+        // Retrieve current values
+        EditText sims = (EditText) optionsView.findViewById(R.id.numSimulations);
+        EditText numDice = (EditText) optionsView.findViewById(R.id.numDiceCho);
+        EditText minFace = (EditText) optionsView.findViewById(R.id.minFaceCho);
+        EditText maxFace = (EditText) optionsView.findViewById(R.id.maxFaceCho);
+
+        sims.setText(Integer.toString(MainActivity.NUM_SIMULATIONS));
+        numDice.setText(Integer.toString(MainActivity.NUM_DICE_CHO));
+        minFace.setText(Integer.toString(MainActivity.MIN_FACE_CHO));
+        maxFace.setText(Integer.toString(MainActivity.MAX_FACE_CHO));
+
 
         setupSaveButton(optionsView);
 
