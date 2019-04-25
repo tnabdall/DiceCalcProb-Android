@@ -36,4 +36,15 @@
     <string name="minFaceDefault">1</string>
     <string name="maxFaceDefault">6</string>
     <string name="saveOptionsButton">Save</string>
+    <string name="rollsSumDefault">1</string>
+    <string name="sumDesLabel">Sum Desired: Only</string>
+    <string name="die1">Die 1</string>
+    <string name="die2">Die 2</string>
+    <string name="die3">Die 3</string>
+    <string name="die4">Die 4</string>
+    <string name="die5">Die 5</string>
+    <string name="die6">Die 6</string>
+    <string name="dieValueLabel">Dice Face Ranges (Min-Max)</string>
+    <string name="dieSumSeparator"> - </string>
+    <string name="sumAtLeastCheck">At least?</string>
 </resources>

@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new ChoiceFragment();
                 break;
 
+            case R.id.nav_sum:
+                fragment = new SumFragment();
+                break;
+
             case R.id.nav_options:
                 fragment = new OptionsFragment();
                 break;
