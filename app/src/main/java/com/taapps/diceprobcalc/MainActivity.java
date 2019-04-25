@@ -17,6 +17,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    public static int NUM_DICE_CHO = 6;
+    public static int MIN_FACE_CHO = 1;
+    public static int MAX_FACE_CHO = 6;
+    public static int NUM_SIMULATIONS = 100000;
 
     static final int OPTIONS_REQUEST = 101;
     protected OptionSet opt = new OptionSet();

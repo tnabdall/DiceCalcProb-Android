@@ -1,6 +1,7 @@
 package com.taapps.diceprobcalc;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,33 +28,11 @@ import java.util.Random;
  */
 public class ChoiceFragment extends Fragment implements FragmentMethods {
 
-    private int MAX_SPINNERS = 6; //Max spinners in layout (ie 6 dice per roll).
-    private int NUM_DICE = 6;
-    private int MIN_FACE = 1;
-    private int MAX_FACE = 6;
-    private int NUM_SIMULATIONS = 100000;
+    public static int MAX_SPINNERS = 6; //Max spinners in layout (ie 6 dice per roll).
+
 
     public ChoiceFragment() {
         // Required empty public constructor
-    }
-
-    public void setNumDice(int numDice) {
-        if(numDice>0&&numDice<=MAX_SPINNERS) {
-            NUM_DICE = numDice;
-        }
-    }
-
-    public void setMINMAXFACE(int minface, int maxface){
-        if(minface>-1 && maxface>minface){
-            MIN_FACE = minface;
-            MAX_FACE = maxface;
-        }
-    }
-
-    public void setNUM_SIMULATIONS(int NUM_SIMULATIONS) {
-        if(NUM_SIMULATIONS>10&&NUM_SIMULATIONS<1000000000) {
-            this.NUM_SIMULATIONS = NUM_SIMULATIONS;
-        }
     }
 
     @Override
@@ -100,34 +79,32 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
         desSpinners.add((Spinner) v.findViewById(R.id.desSpinner6));
 
 
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayList<Integer> setRollChoices = null;
                 ArrayList<Integer> desRollChoices = new ArrayList<Integer>();
                 int rolls = Integer.parseInt(rollsText.getText().toString());
-                if(checkBox.isChecked()){
+                if (checkBox.isChecked()) {
                     setRollChoices = new ArrayList<Integer>();
-                    for (int i = 0; i<setSpinners.size(); i++){
-                        if (setSpinners.get(i).getVisibility() == View.VISIBLE){
+                    for (int i = 0; i < setSpinners.size(); i++) {
+                        if (setSpinners.get(i).getVisibility() == View.VISIBLE) {
                             setRollChoices.add(Integer.parseInt(setSpinners.get(i).getSelectedItem().toString()));
                         }
                     }
                 }
 
                 // Adds all desired roll elements to list
-                for (int i = 0; i<desSpinners.size(); i++){
-                    if (desSpinners.get(i).getVisibility() == View.VISIBLE){
+                for (int i = 0; i < desSpinners.size(); i++) {
+                    if (desSpinners.get(i).getVisibility() == View.VISIBLE) {
                         desRollChoices.add(Integer.parseInt(desSpinners.get(i).getSelectedItem().toString()));
                     }
                 }
 
-                if(rolls>0){
-                    ProbabilityCalculator prob = new ProbabilityCalculator(NUM_DICE, MIN_FACE, MAX_FACE, rolls,desRollChoices,setRollChoices);
-                    double answer = prob.calculate(NUM_SIMULATIONS);
-                    String resultProb = "The probability is ".concat( Double.toString((Math.round(answer*1000))/Double.parseDouble("10"))).concat("%");
-                    result.setText(resultProb);
+                if (rolls > 0) {
+                    ChoiceProbabilityThread thread = new ChoiceProbabilityThread();
+                    ProbabilityCalculator prob = new ProbabilityCalculator(MainActivity.NUM_DICE_CHO, MainActivity.MIN_FACE_CHO, MainActivity.MAX_FACE_CHO, rolls, desRollChoices, setRollChoices);
+                    thread.execute(prob);
                 }
             }
         });
@@ -230,6 +207,53 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
                 }
             }
         });
+
+    }
+
+    private class ChoiceProbabilityThread extends AsyncTask<ProbabilityCalculator, Void, Double> {
+
+        private ProbabilityCalculator prob;
+        public double result;
+        TextView resultView;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            prob = null;
+            result = 0.0;
+            try{
+                resultView = getView().findViewById(R.id.result);
+                resultView.setText("Calculating...");
+            }
+            catch(Exception e){
+                //Do nothing
+            }
+        }
+
+        @Override
+        protected Double doInBackground(ProbabilityCalculator... probabilityCalculators) {
+            try {
+                prob = probabilityCalculators[0];
+                result = prob.calculate(MainActivity.NUM_SIMULATIONS);
+                return result;
+            } catch (Exception e) {
+                //Do nothing
+            }
+            return 0.0;
+        }
+
+        @Override
+        protected void onPostExecute(Double aDouble) {
+            super.onPostExecute(aDouble);
+            try{
+                resultView = getView().findViewById(R.id.result);
+                String resultProb = "The probability is ".concat(Double.toString((Math.round(aDouble * 1000)) / Double.parseDouble("10"))).concat("%");
+                resultView.setText(resultProb);
+            }
+            catch(Exception e){
+                //Do nothing
+            }
+        }
 
     }
 }
