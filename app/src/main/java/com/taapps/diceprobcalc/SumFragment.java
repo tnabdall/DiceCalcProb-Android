@@ -1,6 +1,7 @@
 package com.taapps.diceprobcalc;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -155,9 +156,9 @@ public class SumFragment extends Fragment implements FragmentMethods {
                 }
                 else {
                     //Calculate probability
+                    SumProbabilityThread thread = new SumProbabilityThread();
                     ProbabilityCalculatorSum prob = new ProbabilityCalculatorSum(diceList, Integer.parseInt(sumDesired.getText().toString()), atLeastMode);
-                    String resultProb = "The probability is ".concat(Double.toString((Math.round(prob.Calculate(MainActivity.NUM_SIMULATIONS) * 1000)) / Double.parseDouble("10"))).concat("%");
-                    resultView.setText(resultProb);
+                    thread.execute(prob);
                 }
             }
         });
@@ -167,5 +168,50 @@ public class SumFragment extends Fragment implements FragmentMethods {
     @Override
     public boolean isSameFragment(Fragment f) {
         return (f instanceof SumFragment);
+    }
+
+    private class SumProbabilityThread extends AsyncTask<ProbabilityCalculatorSum, Void, Double> {
+
+        private ProbabilityCalculatorSum prob;
+        public double result;
+        TextView resultView;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            prob = null;
+            result = 0.0;
+            try {
+                resultView = getView().findViewById(R.id.resultSum);
+                resultView.setText("Calculating...");
+            } catch (Exception e) {
+                //Do nothing
+            }
+        }
+
+        @Override
+        protected Double doInBackground(ProbabilityCalculatorSum... probabilityCalculatorSums) {
+            try {
+                prob = probabilityCalculatorSums[0];
+                result = prob.Calculate(MainActivity.NUM_SIMULATIONS);
+                return result;
+            } catch (Exception e) {
+                //Do nothing
+            }
+            return 0.0;
+        }
+
+        @Override
+        protected void onPostExecute(Double aDouble) {
+            super.onPostExecute(aDouble);
+            try {
+                resultView = getView().findViewById(R.id.resultSum);
+                String resultProb = "The probability is ".concat(Double.toString((Math.round(aDouble * 1000)) / Double.parseDouble("10"))).concat("%");
+                resultView.setText(resultProb);
+            } catch (Exception e) {
+                //Do nothing
+            }
+        }
+
     }
 }
