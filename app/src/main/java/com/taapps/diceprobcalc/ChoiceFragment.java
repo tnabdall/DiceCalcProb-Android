@@ -42,7 +42,7 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
         View choiceView = inflater.inflate(R.layout.fragment_choice, container, false);
 
         //Set up all elements
-        setUpSpinners(choiceView, null);
+        setUpSpinners(choiceView);
         setUpCheckBox(choiceView, false);
         setupButton(choiceView);
 
@@ -57,7 +57,6 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
     public void setupButton(View v) {
         // Setup references
         final Button button = (Button) v.findViewById(R.id.calculateButton);
-        final TextView result = (TextView) v.findViewById(R.id.result);
         final EditText rollsText = (EditText) v.findViewById(R.id.numDiceRolls);
 
         final CheckBox checkBox = (CheckBox) v.findViewById(R.id.setRollCheck);
@@ -118,7 +117,7 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
     Sets up spinners with program array for face on each die.
     Defaults to 6 if numFaces is null
      */
-    private void setUpSpinners(View v, @Nullable Integer numFaces) {
+    private void setUpSpinners(View v) {
         //Set up spinner lists
         ArrayList<Spinner> setSpinners = new ArrayList<Spinner>();
         ArrayList<Spinner> desSpinners = new ArrayList<Spinner>();
@@ -137,23 +136,28 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
         desSpinners.add((Spinner) v.findViewById(R.id.desSpinner6));
 
         //Set up array
-        Integer[] array;
-        if (numFaces == null) {
-            array = new Integer[6];
-        } else {
-            array = new Integer[numFaces];
-        }
+        Integer[] array = new Integer[MainActivity.MAX_FACE_CHO - MainActivity.MIN_FACE_CHO + 1];
         for (int i = 0; i < array.length; i++) {
-            array[i] = i + 1;
+            array[i] = i + MainActivity.MIN_FACE_CHO;
         }
 
 
-        //Finalize with spinner adapters
+        //Finalize spinner adapters
         ArrayAdapter<Integer> diceAdapter = new ArrayAdapter<Integer>(v.getContext(), android.R.layout.simple_spinner_dropdown_item, array);
 
         for (int i = 0; i < MAX_SPINNERS; i++) {
             setSpinners.get(i).setAdapter(diceAdapter);
             desSpinners.get(i).setAdapter(diceAdapter);
+        }
+
+        //Set visibilities based on number of dice
+        for (int i = 0; i < desSpinners.size(); i++) {
+            if (i < MainActivity.NUM_DICE_CHO) {
+                desSpinners.get(i).setVisibility(View.VISIBLE);
+            } else {
+                desSpinners.get(i).setVisibility(View.GONE);
+            }
+
         }
 
     }
@@ -177,18 +181,35 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
 
 
         final TextView setLabel = v.findViewById(R.id.setDiceLabel);
-        final LinearLayout spinnerLayout1 = (LinearLayout) v.findViewById(R.id.setSpinnerLayout1);
-        final LinearLayout spinnerLayout2 = (LinearLayout) v.findViewById(R.id.setSpinnerLayout2);
+        final LinearLayout spinLayout1 = v.findViewById(R.id.setSpinnerLayout1);
+        final LinearLayout spinLayout2 = v.findViewById(R.id.setSpinnerLayout2);
+        final ArrayList<Spinner> setSpinners = new ArrayList<Spinner>();
+        setSpinners.add((Spinner) v.findViewById(R.id.setSpinner1));
+        setSpinners.add((Spinner) v.findViewById(R.id.setSpinner2));
+        setSpinners.add((Spinner) v.findViewById(R.id.setSpinner3));
+        setSpinners.add((Spinner) v.findViewById(R.id.setSpinner4));
+        setSpinners.add((Spinner) v.findViewById(R.id.setSpinner5));
+        setSpinners.add((Spinner) v.findViewById(R.id.setSpinner6));
 
 
         // Sets up the visibility
         if (checked == null || checked == false) {
-            spinnerLayout1.setVisibility(View.GONE);
-            spinnerLayout2.setVisibility(View.GONE);
+            spinLayout1.setVisibility(View.GONE);
+            spinLayout2.setVisibility(View.GONE);
+            for (int i = 0; i < setSpinners.size(); i++) {
+                setSpinners.get(i).setVisibility(View.GONE);
+            }
             setLabel.setVisibility(View.INVISIBLE);
         } else {
-            spinnerLayout1.setVisibility(View.VISIBLE);
-            spinnerLayout2.setVisibility(View.VISIBLE);
+            spinLayout1.setVisibility(View.VISIBLE);
+            spinLayout2.setVisibility(View.VISIBLE);
+            for (int i = 0; i < setSpinners.size(); i++) {
+                if (i < MainActivity.NUM_DICE_CHO) {
+                    setSpinners.get(i).setVisibility(View.VISIBLE);
+                } else {
+                    setSpinners.get(i).setVisibility(View.GONE);
+                }
+            }
             setLabel.setVisibility(View.VISIBLE);
         }
 
@@ -197,12 +218,22 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked == false) {
-                    spinnerLayout1.setVisibility(View.GONE);
-                    spinnerLayout2.setVisibility(View.GONE);
+                    spinLayout1.setVisibility(View.GONE);
+                    spinLayout2.setVisibility(View.GONE);
+                    for (int i = 0; i < setSpinners.size(); i++) {
+                        setSpinners.get(i).setVisibility(View.GONE);
+                    }
                     setLabel.setVisibility(View.INVISIBLE);
                 } else {
-                    spinnerLayout1.setVisibility(View.VISIBLE);
-                    spinnerLayout2.setVisibility(View.VISIBLE);
+                    spinLayout1.setVisibility(View.VISIBLE);
+                    spinLayout2.setVisibility(View.VISIBLE);
+                    for (int i = 0; i < setSpinners.size(); i++) {
+                        if (i < MainActivity.NUM_DICE_CHO) {
+                            setSpinners.get(i).setVisibility(View.VISIBLE);
+                        } else {
+                            setSpinners.get(i).setVisibility(View.GONE);
+                        }
+                    }
                     setLabel.setVisibility(View.VISIBLE);
                 }
             }
@@ -221,11 +252,10 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
             super.onPreExecute();
             prob = null;
             result = 0.0;
-            try{
+            try {
                 resultView = getView().findViewById(R.id.result);
                 resultView.setText("Calculating...");
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 //Do nothing
             }
         }
@@ -245,12 +275,11 @@ public class ChoiceFragment extends Fragment implements FragmentMethods {
         @Override
         protected void onPostExecute(Double aDouble) {
             super.onPostExecute(aDouble);
-            try{
+            try {
                 resultView = getView().findViewById(R.id.result);
                 String resultProb = "The probability is ".concat(Double.toString((Math.round(aDouble * 1000)) / Double.parseDouble("10"))).concat("%");
                 resultView.setText(resultProb);
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 //Do nothing
             }
         }

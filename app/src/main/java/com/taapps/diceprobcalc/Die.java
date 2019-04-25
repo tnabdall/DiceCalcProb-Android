@@ -28,7 +28,7 @@ public class Die {
      * Rolls the die between faceMin and faceMax inclusive
      */
     public void rollDie(){
-        face = (int) (faceMin+Math.random()*faceMax);
+        face = (int) (faceMin+Math.random()*(faceMax-faceMin+1));
     }
 
     /**

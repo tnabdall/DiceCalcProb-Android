@@ -24,4 +24,16 @@
     <string name="nav_choice">Desired Roll</string>
     <string name="nav_sum">Desired Sum</string>
     <string name="nav_options">Options</string>
+    <string name="general">General</string>
+    <string name="choice_mode_options">Choice Mode Options</string>
+    <string name="sum_mode_options">Sum Mode Options</string>
+    <string name="numDiceHint">1-6 supported</string>
+    <string name="minFaceHint">0 or greater</string>
+    <string name="maxFaceHint">Greater than minFace</string>
+    <string name="minFaceLabel">Minimum Die Face:</string>
+    <string name="maxFaceLabel">Maximum Die Face:</string>
+    <string name="numDiceDefault">6</string>
+    <string name="minFaceDefault">1</string>
+    <string name="maxFaceDefault">6</string>
+    <string name="saveOptionsButton">Save</string>
 </resources>

@@ -59,10 +59,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_options:
-                intent = new Intent(this,OptionsActivity.class);
+                fragment = new OptionsFragment();
+                break;
             default:
                 break;
-
         }
 
         FragmentManager fm = getSupportFragmentManager();
