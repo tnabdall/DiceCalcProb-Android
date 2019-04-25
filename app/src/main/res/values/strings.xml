@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Dice Probability Calculator</string>
+    <string name="simsLabel">Number of Simulations: </string>
+    <string name="numRollsLabel">Number of Rolls Left: </string>
+    <string name="calcButton">Calculate</string>
+    <string name="simsDefault">100000</string>
+    <string name="rollsDefault">3</string>
+    <string name="result">The probability is: </string>
+    <string name="setRoll">Set the current dice roll?</string>
+    <string name="desDiceRollLabel">Desired Dice Roll</string>
+    <string name="setDiceLabel">Current Dice Roll</string>
+    <string name="optionsButton">Options</string>
+    <string name="simsHint"><![CDATA[Positive Number > 10000]]></string>
+    <string name="numDiceLabel">Number of Dice:</string>
+    <string name="numFacesLabel">Number of Faces on Die:</string>
+    <string name="sumLabel">Sum Mode</string>
+    <string name="desDiceModeLabel">Desired Dice Mode</string>
+    <string name="desSumLabel">Desired Sum</string>
+    <string name="sumDefault">20</string>
+    <string name="choice">Desired Roll Calculator</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_open_drawer">Open Navigation</string>
+    <string name="nav_close_drawer">Close Navigation</string>
+    <string name="nav_choice">Desired Roll</string>
+    <string name="nav_sum">Desired Sum</string>
+    <string name="nav_options">Options</string>
+</resources>

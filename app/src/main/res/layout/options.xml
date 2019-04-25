@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/simsText4"
+        android:layout_width="126dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/desDiceModeLabel"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/modeSwitch"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/simsText3" />
+
+    <TextView
+        android:id="@+id/simsText5"
+        android:layout_width="126dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/sumLabel"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/modeSwitch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/modeSwitch"
+        app:layout_constraintTop_toTopOf="@+id/modeSwitch"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/simsText3"
+        android:layout_width="126dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/numFacesLabel"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/faceSpinner"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/simsText2" />
+
+    <Spinner
+        android:id="@+id/faceSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:dropDownWidth="wrap_content"
+        android:entries="@array/faceArray"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/simsText3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/simsText3"
+        app:layout_constraintTop_toTopOf="@+id/simsText3"
+        app:layout_constraintVertical_bias="0.484" />
+
+    <Spinner
+        android:id="@+id/diceSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:dropDownWidth="wrap_content"
+        android:entries="@array/numDiceArray"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/simsText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/simsText2"
+        app:layout_constraintTop_toTopOf="@+id/simsText2" />
+
+    <TextView
+        android:id="@+id/simsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/simsLabel"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/simsInput"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/simsInput"
+        android:layout_width="135dp"
+        android:layout_height="36dp"
+        android:ems="10"
+        android:hint="@string/simsHint"
+        android:inputType="numberSigned"
+        android:text="@string/simsDefault"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/simsText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/simsText"
+        app:layout_constraintTop_toTopOf="@+id/simsText" />
+
+    <TextView
+        android:id="@+id/simsText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/numDiceLabel"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/diceSpinner"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/simsText" />
+
+    <Switch
+        android:id="@+id/modeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/simsText4"
+        app:layout_constraintEnd_toStartOf="@+id/simsText5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/simsText4"
+        app:layout_constraintTop_toTopOf="@+id/simsText4" />
+</android.support.constraint.ConstraintLayout>
