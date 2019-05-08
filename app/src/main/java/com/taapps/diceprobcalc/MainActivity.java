@@ -22,7 +22,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int NUM_DICE_CHO = 6;
     public static int MIN_FACE_CHO = 1;
     public static int MAX_FACE_CHO = 6;
-    public static int NUM_SIMULATIONS = 100000;
+    public static int NUM_SIMULATIONS = 40000;
+    public static int QUICK_SIMULATIONS = 40000;
+    public static int ACCURATE_SIMULATIONS = 400000;
+    public static boolean quickFalseAccurateTrue = false;
 
     public static final int OPTIONS_REQUEST = 101;
     protected OptionSet opt = new OptionSet();

@@ -28,7 +28,7 @@ import java.util.ArrayList;
  */
 public class SumFragment extends Fragment implements FragmentMethods {
 
-    private boolean atLeastMode = false;
+    private boolean atLeastMode = true;
     public static int STARTDICENUM = 6;
 
     private AdView mAdView;
@@ -93,7 +93,10 @@ public class SumFragment extends Fragment implements FragmentMethods {
     private void setupCheckbox(View v) {
         CheckBox atLeast = (CheckBox) v.findViewById(R.id.sumAtLeastCheck);
         final TextView sumDesLabel = (TextView) v.findViewById(R.id.sumDesLabel);
-        atLeast.setChecked(false);
+        atLeast.setChecked(atLeastMode);
+        if(atLeastMode){
+            sumDesLabel.setText("Desired sum: At least ");
+        }
 
         atLeast.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

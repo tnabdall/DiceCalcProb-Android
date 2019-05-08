@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -42,15 +43,16 @@ public class OptionsFragment extends Fragment implements FragmentMethods {
         mAdView.loadAd(adRequest);
 
         // Retrieve current values
-        EditText sims = (EditText) optionsView.findViewById(R.id.numSimulations);
+        Switch sims = (Switch) optionsView.findViewById(R.id.simulationSwitch);
         EditText numDice = (EditText) optionsView.findViewById(R.id.numDiceCho);
         EditText minFace = (EditText) optionsView.findViewById(R.id.minFaceCho);
         EditText maxFace = (EditText) optionsView.findViewById(R.id.maxFaceCho);
 
-        sims.setText(Integer.toString(MainActivity.NUM_SIMULATIONS));
         numDice.setText(Integer.toString(MainActivity.NUM_DICE_CHO));
         minFace.setText(Integer.toString(MainActivity.MIN_FACE_CHO));
         maxFace.setText(Integer.toString(MainActivity.MAX_FACE_CHO));
+        sims.setChecked(MainActivity.quickFalseAccurateTrue);
+
 
 
         setupSaveButton(optionsView);
@@ -64,12 +66,12 @@ public class OptionsFragment extends Fragment implements FragmentMethods {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText sims = getView().findViewById(R.id.numSimulations);
+                Switch sims = getView().findViewById(R.id.simulationSwitch);
                 EditText diceCho = getView().findViewById(R.id.numDiceCho);
                 EditText minCho = getView().findViewById(R.id.minFaceCho);
                 EditText maxCho = getView().findViewById(R.id.maxFaceCho);
 
-                setNUM_SIMULATIONS(Integer.parseInt(sims.getText().toString()));
+                setNUM_SIMULATIONS(sims.isChecked());
                 setNumDiceCho(Integer.parseInt(diceCho.getText().toString()));
                 setMINMAXFACECho(Integer.parseInt(minCho.getText().toString()),Integer.parseInt(maxCho.getText().toString()));
             }
@@ -106,13 +108,12 @@ public class OptionsFragment extends Fragment implements FragmentMethods {
         }
     }
 
-    public void setNUM_SIMULATIONS(int NUM_SIMULATIONS) {
-        if (NUM_SIMULATIONS > 10 && NUM_SIMULATIONS < 1000000000) {
-            MainActivity.NUM_SIMULATIONS = NUM_SIMULATIONS;
+    public void setNUM_SIMULATIONS(boolean isChecked) {
+        MainActivity.quickFalseAccurateTrue = isChecked;
+        if (isChecked) {
+            MainActivity.NUM_SIMULATIONS = MainActivity.ACCURATE_SIMULATIONS;
         } else {
-            EditText sims = getView().findViewById(R.id.numSimulations);
-            sims.setText(simsDefault);
-            MainActivity.NUM_SIMULATIONS = Integer.parseInt(simsDefault);
+            MainActivity.NUM_SIMULATIONS = MainActivity.QUICK_SIMULATIONS;
         }
     }
 }

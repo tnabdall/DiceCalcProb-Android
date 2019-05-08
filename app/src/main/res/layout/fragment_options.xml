@@ -18,26 +18,50 @@
         android:textSize="25sp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/simsLabel" />
+            android:text="@string/simsLabel"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/numSimulations"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:hint="@string/simsHint"
-            android:inputType="numberSigned"
-            android:text="@string/simsDefault"
-            android:textAlignment="center" />
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/quicker"
+                android:textAlignment="center"
+                android:gravity="center"/>
+
+            <Switch
+                android:id="@+id/simulationSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="17dp"
+                android:layout_marginEnd="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accurate"
+                android:textAlignment="center" />
+
+
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
@@ -118,20 +142,18 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/saveOptionsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/saveOptionsButton"
         android:layout_marginTop="10dp"
-        android:id="@+id/saveOptionsButton"/>
+        android:text="@string/saveOptionsButton" />
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-9050395429342895/4685264280">
-    </com.google.android.gms.ads.AdView>
+        ads:adUnitId="ca-app-pub-9050395429342895/4685264280"></com.google.android.gms.ads.AdView>
 
 
 </LinearLayout>
